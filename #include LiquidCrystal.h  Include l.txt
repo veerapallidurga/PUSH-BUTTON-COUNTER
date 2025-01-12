@@ -1,0 +1,51 @@
+#include <LiquidCrystal.h> // Include library for LCD
+
+// Pin configuration for LCD (optional)
+LiquidCrystal lcd(7, 6, 5, 4, 3, 2);
+
+// Pin for push button
+const int buttonPin = 8;
+
+// Variables
+int buttonState = 0;          // Current state of button
+int lastButtonState = 0;      // Previous state of button
+int count = 0;                // Counter
+unsigned long debounceDelay = 50; // Debounce delay (in milliseconds)
+unsigned long lastDebounceTime = 0; // Last debounce time
+
+void setup() {
+  pinMode(buttonPin, INPUT); // Set button pin as input
+  lcd.begin(16, 2);          // Initialize LCD
+  lcd.print("Count: ");      // Print label
+  Serial.begin(9600);        // Begin serial communication
+}
+
+void loop() {
+  // Read button state
+  int reading = digitalRead(buttonPin);
+
+  // Check if the button state has changed
+  if (reading != lastButtonState) {
+    lastDebounceTime = millis(); // Record the time of the change
+  }
+
+  // If the state remains stable for debounce delay
+  if ((millis() - lastDebounceTime) > debounceDelay) {
+    // If button state has changed
+    if (reading != buttonState) {
+      buttonState = reading;
+
+      // Increment counter if button is pressed
+      if (buttonState == HIGH) {
+        count++;
+        lcd.setCursor(0, 1); // Move to the second row
+        lcd.print("          "); // Clear the row
+        lcd.setCursor(0, 1);
+        lcd.print(count);    // Display count on LCD
+        Serial.println(count); // Print count to serial monitor
+      }
+    }
+  }
+
+  lastButtonState = reading; // Update last button state
+}

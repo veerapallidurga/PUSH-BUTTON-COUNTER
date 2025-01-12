@@ -13,4 +13,4 @@ The system relies on a simple yet efficient hardware setup, consisting of a push
 
 A critical aspect of this design is the debouncing mechanism. Mechanical push buttons are prone to “bouncing,” where rapid on-off signals are generated when the button is pressed or released. These multiple transitions can result in erroneous counting, leading to false increments in the counter. To prevent this, a debouncing algorithm is implemented in the software. The microcontroller checks the button state at regular intervals, and if the state remains stable for a predefined period (debounce delay), the button press is considered valid. This ensures that only one increment occurs per press, even if the button physically bounces.
 # OUTPUT OF THE TASK 1
-https://github.com/veerapallidurga/PUSH-BUTTON-COUNTER/issues/1#issue-2782292210
+![image](https://github.com/user-attachments/assets/1bc3f9ca-6768-4261-98c5-47f88fe1c12f)
